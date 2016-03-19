@@ -79,6 +79,16 @@ function config_nginx()
                            sed 's/#        root   html/google on/g;s/#        index  index.html index.htm;//g' | \
                            tr -d '#' >> nginx.conf
 }
+echo 注意：仅适用于Debian系操作系统 在Ubuntu14.04中测试通过
+echo       不适用Redhat CentOS
+echo 为避免风险请不要在运行重要服务的机器里运行这个脚本 脚本作者不负责由此造成的数据丢失等责任 请谨慎使用！
+echo "继续吗(yes/no)？"
+read con
+if [[ $con == "no" ]]
+  then
+    echo 脚本退出
+    exit 15
+fi
 envir_check
 if [[ -n $NGINXPID ]]
   then
@@ -128,4 +138,3 @@ if [[ $NGINX == "EXIST" ]]
         exit 13
     fi
 fi
-
