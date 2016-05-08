@@ -41,7 +41,7 @@ EOF
   [ $? != 0 ] && echo "nginx 下载失败,详细信息请检查错误输出。" && exit 4
   [ -e ./pcre-8.38.tar.gz ] && tar -zxvf pcre-8.38.tar.gz || (wget -t 3 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz;tar -zxvf pcre-8.38.tar.gz)
   [ $? != 0 ] && echo "pcre 下载失败,详细信息请检查错误输出。" && exit 5
-  [ -e ./openssl-1.0.2g.tar.gz ] && tar -zxvf openssl-1.0.2g.tar.gz || (wget -t 3 https://www.openssl.org/source/openssl-1.0.2g.tar.gz;tar -zxvf openssl-1.0.2g.tar.gz)
+  [ -e ./openssl-1.0.2h.tar.gz ] && tar -zxvf openssl-1.0.2h.tar.gz || (wget -t 3 https://www.openssl.org/source/openssl-1.0.2h.tar.gz;tar -zxvf openssl-1.0.2h.tar.gz)
   [ $? != 0 ] && echo "openssl 下载失败,详细信息请检查错误输出。" && exit 6
   [ -e ./zlib-1.2.8.tar.gz ] && tar -zxvf zlib-1.2.8.tar.gz || (wget -t 3 http://zlib.net/zlib-1.2.8.tar.gz;tar -zxvf zlib-1.2.8.tar.gz)
   [ $? != 0 ] && echo "zlib 下载失败,详细信息请检查错误输出。" && exit 7
@@ -53,7 +53,7 @@ EOF
   ./configure \
   --prefix=/opt/nginx-1.8.1 \
   --with-pcre=../pcre-8.38 \
-  --with-openssl=../openssl-1.0.2g \
+  --with-openssl=../openssl-1.0.2h \
   --with-zlib=../zlib-1.2.8 \
   --with-http_ssl_module \
   --add-module=../ngx_http_google_filter_module \
