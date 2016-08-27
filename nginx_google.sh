@@ -16,7 +16,7 @@ function envir_check()
   else
   GIT='INSTALLED'
   fi
-  [ -e /opt/nginx-1.8.1/sbin/nginx ] && NGINX='EXIST'
+  [ -e /opt/nginx-1.10.1/sbin/nginx ] && NGINX='EXIST'
   NGINXPID=`pidof nginx`
 }
 function install_nginx()
@@ -37,7 +37,7 @@ y
 EOF
   [ $? != 0 ] && echo git 未安装成功,请检查错误输出信息. && exit 3
   fi
-  [ -e ./nginx-1.8.1.tar.gz ] && tar -zxvf nginx-1.8.1.tar.gz || (wget -t 3 http://nginx.org/download/nginx-1.8.1.tar.gz;tar -zxvf nginx-1.8.1.tar.gz)
+  [ -e ./nginx-1.10.1.tar.gz ] && tar -zxvf nginx-1.10.1.tar.gz || (wget -t 3 http://nginx.org/download/nginx-1.10.1.tar.gz;tar -zxvf nginx-1.10.1.tar.gz)
   [ $? != 0 ] && echo "nginx 下载失败,详细信息请检查错误输出。" && exit 4
   [ -e ./pcre-8.38.tar.gz ] && tar -zxvf pcre-8.38.tar.gz || (wget -t 3 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz;tar -zxvf pcre-8.38.tar.gz)
   [ $? != 0 ] && echo "pcre 下载失败,详细信息请检查错误输出。" && exit 5
@@ -49,9 +49,9 @@ EOF
   [ $? != 0 ] && echo "google module 下载失败,详细信息请检查错误输出。" && exit 8
   git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module
   [ $? != 0 ] && echo "filter module 下载失败,详细信息请检查错误输出。" && exit 9 
-  cd nginx-1.8.1
+  cd nginx-1.10.1
   ./configure \
-  --prefix=/opt/nginx-1.8.1 \
+  --prefix=/opt/nginx-1.10.1 \
   --with-pcre=../pcre-8.38 \
   --with-openssl=../openssl-1.0.2h \
   --with-zlib=../zlib-1.2.8 \
@@ -64,7 +64,7 @@ EOF
 }
 function config_nginx()
 {
-  cd /opt/nginx-1.8.1/conf
+  cd /opt/nginx-1.10.1/conf
   cat nginx.conf.default | head -n 93 | \
                            sed "s/server_name  localhost/server_name  $domain/g" | \
                            sed 's/#charset koi8-r/return 301 https:\/\/$host$request_uri/g' | \
@@ -112,7 +112,7 @@ if [[ $NGINX == "EXIST" ]]
         rm -rf ./ngx_http_google_filter_module 2> /dev/null
         rm -rf ./ngx_http_substitutions_filter_module 2> /dev/null
         install_nginx
-        echo 安装完成 请手动执行/opt/nginx-1.8.1/sbin/nginx
+        echo 安装完成 请手动执行/opt/nginx-1.10.1/sbin/nginx
     fi
   else
     echo "请输入您网站证书的绝对路径:"
@@ -129,7 +129,7 @@ if [[ $NGINX == "EXIST" ]]
             rm -rf ./ngx_http_substitutions_filter_module 2> /dev/null
             install_nginx
             config_nginx
-            echo "安装完毕,请手动执行/opt/nginx-1.8.1/sbin/nginx,如果您的私钥有密码保护,请输入您的私钥密码。"
+            echo "安装完毕,请手动执行/opt/nginx-1.10.1/sbin/nginx,如果您的私钥有密码保护,请输入您的私钥密码。"
         else
           echo "找不到私钥文件,请核对路径后重新运行脚本再次输入。"
           exit 12
